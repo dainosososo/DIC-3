@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LabSteward 實驗室財產管理 AI Agent - 專案全景總覽</title>
+    <title>DIC-3 專題全景成果儀表板 (LabSteward & 空污運動排程 AI Agent)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,7 +22,7 @@
         .hero {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 3.5rem 2rem;
             border-radius: 0 0 2rem 2rem;
             margin-bottom: 2rem;
         }
@@ -41,15 +41,31 @@
             margin-bottom: 1.5rem;
         }
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
         .table-custom th {
             background-color: #f1f5f9;
             color: #334155;
             font-weight: 600;
         }
-        .nav-pills .nav-link.active {
-            background-color: var(--accent);
+        .nav-tabs .nav-link {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #64748b;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 0.75rem 1.25rem;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0284c7;
+            border-bottom: 3px solid #0284c7;
+            background: transparent;
+        }
+        .kpi-card {
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            background: white;
+            border-left: 4px solid var(--accent);
         }
         .flow-step {
             border-left: 3px solid var(--accent);
@@ -62,159 +78,233 @@
 
 <div class="hero text-center">
     <div class="container">
-        <span class="badge badge-sop mb-2">2020 A-Z SOP & OpenSpec Spec-Driven Development</span>
-        <h1 class="display-4 fw-bold">LabSteward 實驗室財產管理 AI Agent</h1>
-        <p class="lead">An AI Agent for Laboratory Asset Management with Statutory Compliance & Dual-Track Valuation</p>
+        <span class="badge badge-sop mb-2">2020 A-Z SOP & Spec-Driven Development (OpenSpec)</span>
+        <h1 class="display-4 fw-bold">DIC-3 專題雙主題成果總覽</h1>
+        <p class="lead">主題一：LabSteward 實驗室財產管理 AI Agent ｜ 主題二：戶外運動即時空污風險預測與活動排程 AI Agent</p>
         <p class="text-light opacity-75">作者團隊：潘兆邠、邱冠霖、林浚偉、張皓崴、黃翊豪（資訊工程學系）</p>
-        <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="https://github.com/dainosososo/DIC-3" target="_blank" class="btn btn-outline-light"><i class="fab fa-github me-1"></i> GitHub Repository</a>
-            <a href="#sop-a-f" class="btn btn-info text-dark fw-bold"><i class="fas fa-book-open me-1"></i> A-Z SOP 解析</a>
-            <a href="#openspec-wf" class="btn btn-warning text-dark fw-bold"><i class="fas fa-layer-group me-1"></i> OpenSpec 規格驅動</a>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <a href="https://github.com/dainosososo/DIC-3" target="_blank" class="btn btn-outline-light"><i class="fab fa-github me-1"></i> GitHub 倉庫</a>
+            <a href="infographic_a4_landscape.html" target="_blank" class="btn btn-info text-dark fw-bold"><i class="fas fa-chart-line me-1"></i> A4 橫式資訊圖表</a>
+            <a href="infographic_a4_landscape.png" target="_blank" class="btn btn-warning text-dark fw-bold"><i class="fas fa-image me-1"></i> 高解析圖表影像 (PNG)</a>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <!-- Quick Stats Grid -->
-    <div class="row text-center mb-4">
-        <div class="col-md-3">
-            <div class="card p-3">
-                <h3 class="text-primary fw-bold">0.0%</h3>
-                <p class="text-muted mb-0">採購法規違規率 (Guardrail 阻斷)</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card p-3">
-                <h3 class="text-success fw-bold">32.1%</h3>
-                <p class="text-muted mb-0">消弭 LLM 端到端幻覺稅</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card p-3">
-                <h3 class="text-info fw-bold">92.0%</h3>
-                <p class="text-muted mb-0">多步驟穩定度 pass@4</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card p-3">
-                <h3 class="text-warning fw-bold">50 題</h3>
-                <p class="text-muted mb-0">實驗室情境基準測試評估集</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Section A-F -->
-    <div id="sop-a-f" class="card p-4">
-        <h3 class="fw-bold text-primary mb-3"><i class="fas fa-star me-2"></i> 專案核心 A to F 摘要結構 (Abstract A to F)</h3>
-        <div class="table-responsive">
-            <table class="table table-bordered table-custom">
-                <thead>
-                    <tr>
-                        <th style="width: 15%">SOP 代號</th>
-                        <th style="width: 25%">規範意義</th>
-                        <th>LabSteward 專案落實內涵</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="badge bg-primary">A. Attention Getter</span></td>
-                        <td><strong>動機與引題 (Motivation)</strong></td>
-                        <td>公立大學貴重儀器閒置嚴重（監察院調查 8 所頂大年閒置 60 餘台形成蚊子儀器；韓國 2026 全面清查閒置設備）。採購端迎來 Agentic AI 轉型，Gartner 預估 2028 年 90% B2B 採購由 AI Agent 中介。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-danger">B. But</span></td>
-                        <td><strong>深層挑戰 (However 挑戰)</strong></td>
-                        <td>校內系統只登帳無稼動率；端到端 LLM 庫存決策成本高出 32.1%（幻覺稅），多步驟穩定度 pass^8 &lt; 25%；電商 Agent 不懂台灣《政府採購法》15 萬門檻與最低耐用年限。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-success">C. Cure</span></td>
-                        <td><strong>解藥與方案 (Proposed Novel Scheme)</strong></td>
-                        <td>提出 LabSteward：融合公法知識與確定性工具調用之雙模組 AI Agent，涵蓋「管理」（導入、借還、殘值、報廢）與「採購」（確認、查庫存、比價、清單）。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-info">D. Development</span></td>
-                        <td><strong>架構設計 (Design based on...)</strong></td>
-                        <td>LLM ReAct Planner 負責自然語言互動與協調，計算全數交由 SQLite、雙軌殘值模型、實體對齊演算法與 YAML 規則引擎 Guardrail。所有帳務異動均留存審計日誌並經 Human-in-the-loop 人工簽核。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-secondary">E. Experiments</span></td>
-                        <td><strong>實驗設計 (Evaluation Setup)</strong></td>
-                        <td>建立 50 題真實情境測試集（25 管理、25 採購），對比 B1 人工 Excel、B2 單一 LLM 端到端、B3 純 RAG 問答。指標包含任務成功率、pass@4、MAPE、違規率與作業耗時。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-dark">F. Findings</span></td>
-                        <td><strong>預期成果 (Results show that...)</strong></td>
-                        <td>法規違規率降為 0%；「先查庫存再採購」流程減少逾 30% 重複採購；雙軌殘值提供帳面與市場公允區間；一鍵產出標準報廢與請購公文草稿。</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <!-- Nav Tabs for Topic 1 and Topic 2 -->
+    <ul class="nav nav-tabs justify-content-center mb-4" id="projectTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="topic2-tab" data-bs-toggle="tab" data-bs-target="#topic2" type="button" role="tab"><i class="fas fa-lungs me-2 text-danger"></i>主題二：空污慢跑排程 AI Agent (A4 橫式資訊圖表)</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="topic1-tab" data-bs-toggle="tab" data-bs-target="#topic1" type="button" role="tab"><i class="fas fa-microscope me-2 text-primary"></i>主題一：LabSteward 實驗室財產 AI Agent (A-Z SOP)</button>
+        </li>
+    </ul>
 
-    <!-- 5 Cores, 3 Trade-offs, 10 Details -->
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card p-4 h-100">
-                <h4 class="fw-bold text-primary mb-3"><i class="fas fa-brain me-2"></i> 5 個核心思維模式 (Five Mindsets)</h4>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>1. 帳實相符 (Record = Reality)</strong>：所有寫入經工具執行並留存稽核日誌，絕不允許 LLM 口頭改帳，支援 QR Code 盤點。</li>
-                    <li class="list-group-item"><strong>2. 全生命週期 (Lifecycle)</strong>：以嚴格狀態機（在庫→借出→維修→待報廢→已報廢）管理，非法轉移直接阻斷。</li>
-                    <li class="list-group-item"><strong>3. 先共享，再採購 (Utilize before Acquire)</strong>：採購首步強制排查庫存閒置，滿足則轉內部借調。</li>
-                    <li class="list-group-item"><strong>4. 合規與分級授權 (Compliance by Threshold)</strong>：門檻做成外部 YAML 規則檔，15 萬小額、150 萬公告金額由規則引擎判定。</li>
-                    <li class="list-group-item"><strong>5. 帳面價值 ≠ 經濟價值 (Book vs. Economic Value)</strong>：直線折舊無法指導決策，同時輸出市場公允殘值區間。</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card p-4 h-100">
-                <h4 class="fw-bold text-primary mb-3"><i class="fas fa-balance-scale me-2"></i> 3 大專業爭論與權衡 (Three Trade-offs)</h4>
-                <div class="flow-step">
-                    <strong>爭論一：折舊年限（法定年限 ↔ 實際經濟壽命）</strong>
-                    <p class="small text-muted mb-0">會計年限為合規稽核底線，汰換決策應看市場二手殘值；採用雙軌估值並標記信心度區間。</p>
-                </div>
-                <div class="flow-step">
-                    <strong>爭論二：資源配置（集中共享 ↔ 實驗室自有）</strong>
-                    <p class="small text-muted mb-0">高價低頻儀器走共享，低價高頻留在室內；當設備使用率低於 15% 時主動建議開放移撥。</p>
-                </div>
-                <div class="flow-step">
-                    <strong>爭論三：AI 自主程度（全自動 Agentic ↔ 人在迴路 HITL）</strong>
-                    <p class="small text-muted mb-0">LLM 僅作語意協調與秘書草稿，具法律效力之採購與報廢強制經由人類主管簽核授權。</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="tab-content" id="projectTabContent">
 
-    <!-- OpenSpec Workflow -->
-    <div id="openspec-wf" class="card p-4 mt-3">
-        <h4 class="fw-bold text-primary mb-3"><i class="fas fa-check-circle me-2"></i> OpenSpec 規格驅動開發工作流 (Spec-Driven Workflow)</h4>
-        <p>專案全面遵循 OpenSpec 規格驅動開發架構，通過 <code>openspec validate --all</code> 嚴格驗證：</p>
-        <div class="row text-center">
-            <div class="col-md-3">
-                <div class="border rounded p-3 bg-white">
-                    <span class="badge bg-success mb-2">COMPLETE</span>
-                    <h6 class="fw-bold">1. Proposal</h6>
-                    <small class="text-muted">定義 Why, What Changes, Capabilities 與 Impact</small>
+        <!-- ======================= TOPIC 2: AIR POLLUTION AGENT ======================= -->
+        <div class="tab-pane fade show active" id="topic2" role="tabpanel">
+            <!-- Topic 2 Hero Banner -->
+            <div class="card p-4 bg-dark text-white mb-4" style="background: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 100%) !important;">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <span class="badge bg-danger mb-2">A4 橫式 高密度 NUMBERING 資訊圖表發布</span>
+                        <h2 class="fw-bold mb-1">戶外運動即時空污風險預測與個人化活動排程 AI Agent</h2>
+                        <p class="text-slate-400 mb-0">鎖定慢跑換氣量激增生理痛點，整合環境部即時 OpenAPI、滾動時間序列回歸、白名單工具與官方 AQI 衛教規則庫</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="infographic_a4_landscape.html" target="_blank" class="btn btn-outline-info"><i class="fas fa-external-link-alt me-1"></i> 開啟全頁圖表</a>
+                        <a href="AIR_POLLUTION_AGENT_ANALYSIS.md" target="_blank" class="btn btn-outline-light"><i class="fas fa-file-alt me-1"></i> 完整研究報告 (MD)</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="border rounded p-3 bg-white">
-                    <span class="badge bg-success mb-2">COMPLETE</span>
-                    <h6 class="fw-bold">2. Specs Delta</h6>
-                    <small class="text-muted">定義 4 大能力之規範與 WHEN/THEN 情境驗證</small>
+
+            <!-- Embedded Infographic Viewer -->
+            <div class="card p-3 mb-4 text-center">
+                <h5 class="fw-bold text-start mb-2"><i class="fas fa-image text-info me-2"></i>A4 橫式高密度視覺化圖表預覽 (點擊開啟高解析檔)</h5>
+                <a href="infographic_a4_landscape.png" target="_blank">
+                    <img src="infographic_a4_landscape.png" class="img-fluid rounded border shadow-sm" alt="A4 橫式高密度資訊圖表" style="max-height: 600px; width: auto;">
+                </a>
+                <div class="text-muted small mt-2">標準 A4 橫式比例 (297mm × 210mm) · 遵循 2020 A-Z SOP 六大核心編號模組 · 嚴格無虛構數據</div>
+            </div>
+
+            <!-- Numbered A to F Breakdown Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #ef4444;">
+                        <h5 class="fw-bold text-danger"><span class="badge bg-danger me-1">[1.0] A</span> Attention Getter</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>換氣量暴增 8~15 倍</strong>：跑步每分鐘吸入 50~100 L 空氣（安靜時僅 6 L），1 小時吸入污染量等同室內數小時。</li>
+                            <li><strong>興大 150 萬人研究 (*BMC Medicine*)</strong>：PM2.5≥25 μg/m³ 運動防死效益直接腰斬；≥35 μg/m³ 抗癌保護歸零。</li>
+                            <li><strong>*Lancet* 街頭試驗</strong>：高空污街區健走 2 小時引發急性動脈血管變硬。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #f97316;">
+                        <h5 class="fw-bold text-warning"><span class="badge bg-warning text-dark me-1">[2.0] B</span> But (挑戰)</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>數據被動無未來趨勢</strong>：現有 App 僅顯示整點歷史值，缺未來 1~6 小時走勢。</li>
+                            <li><strong>欠缺個人化推理</strong>：無體況（氣喘/過敏）情境生活化排程與室內備案。</li>
+                            <li><strong>LLM 數值幻覺與醫療越權</strong>：純 LLM 易胡亂捏造 PM2.5 濃度，並越權開立醫療用藥處方，觸犯法規底線。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #06b6d4;">
+                        <h5 class="fw-bold text-info"><span class="badge bg-info text-dark me-1">[3.0] C</span> Cure (解藥)</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>工具導向 AI Agent 新範式</strong>：LLM 專職意圖解析與追問，計算 100% 委派確定性工具。</li>
+                            <li><strong>三位一體融合</strong>：環境部即時觀測串流 + 滾動時序回歸 + 官方 AQI 衛教規則庫。</li>
+                            <li><strong>運動黃金窗推薦</strong>：主動計算污染最低時段，超標主動建議 HEPA 室內健身房。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #3b82f6;">
+                        <h5 class="fw-bold text-primary"><span class="badge bg-primary me-1">[4.0] D</span> Development (方法)</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>技術堆疊</strong>：FastAPI 異步後端 + LangChain ReAct 狀態機 + SQLite 審計庫。</li>
+                            <li><strong>四大白名單 Function Calling</strong>：
+                                <code>get_moenv_realtime</code>, <code>predict_short_term_aqi</code>, <code>query_official_guideline</code>, <code>optimize_schedule</code>。</li>
+                            <li><strong>安全降級</strong>：遇醫療疾病自述 100% 阻斷並轉介專業醫師。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #8b5cf6;">
+                        <h5 class="fw-bold" style="color: #8b5cf6;"><span class="badge bg-secondary me-1">[5.0] E</span> Experiments (評估)</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>2024–2026 臺中觀測資料</strong>：西屯、忠明、沙鹿、豐原等測站逐時大氣時序。</li>
+                            <li><strong>無未來洩漏滾動回測 (Walk-Forward)</strong>：過去 72 小時滑動訓練特徵，對比 B1 延續基準、B2 ARIMA、B3 純 LLM。</li>
+                            <li><strong>30+ 越界壓力情境集</strong>：醫療越權誘騙 (10題)、極端故障 (10題)、排程衝突 (10題)。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card h-100" style="border-left-color: #10b981;">
+                        <h5 class="fw-bold text-success"><span class="badge bg-success me-1">[6.0] F</span> Findings (預期產出)</h5>
+                        <ul class="small ps-3 mb-0 text-muted">
+                            <li><strong>嚴格恪守不虛構數據規範</strong>：提案階段尚未實驗者僅列 Expected Outcomes。</li>
+                            <li><strong>預期 MAE/RMSE 改善 15%~25%</strong>：相較於 Persistence 基準。</li>
+                            <li><strong>100.0% 官方來源完全揭露率</strong>：活動指引均具備測站與法規引用標註。</li>
+                            <li><strong>100.0% 醫療越權安全阻斷率</strong>：零醫療責任越權。</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="border rounded p-3 bg-white">
-                    <span class="badge bg-success mb-2">COMPLETE</span>
-                    <h6 class="fw-bold">3. Design</h6>
-                    <small class="text-muted">技術架構、非目標、決策權衡與風險緩解策略</small>
+        </div>
+
+        <!-- ======================= TOPIC 1: LABSTEWARD ASSET AGENT ======================= -->
+        <div class="tab-pane fade" id="topic1" role="tabpanel">
+            <!-- Stats Grid -->
+            <div class="row text-center mb-4">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="text-primary fw-bold">0.0%</h3>
+                        <p class="text-muted mb-0">採購法規違規率 (Guardrail 阻斷)</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="text-success fw-bold">32.1%</h3>
+                        <p class="text-muted mb-0">消弭 LLM 端到端幻覺稅</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="text-info fw-bold">92.0%</h3>
+                        <p class="text-muted mb-0">多步驟穩定度 pass@4</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="text-warning fw-bold">50 題</h3>
+                        <p class="text-muted mb-0">實驗室情境基準測試評估集</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="border rounded p-3 bg-white">
-                    <span class="badge bg-success mb-2">COMPLETE</span>
-                    <h6 class="fw-bold">4. Tasks</h6>
-                    <small class="text-muted">可追蹤之驗證清單與端到端實作落地</small>
+
+            <!-- Section A-F Table -->
+            <div class="card p-4 mb-4">
+                <h4 class="fw-bold text-primary mb-3"><i class="fas fa-star me-2"></i> LabSteward A to F 摘要結構 (Abstract A to F)</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-custom">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%">SOP 代號</th>
+                                <th style="width: 25%">規範意義</th>
+                                <th>LabSteward 專案落實內涵</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge bg-primary">A. Attention Getter</span></td>
+                                <td><strong>動機與引題</strong></td>
+                                <td>公立大學貴重儀器閒置嚴重（監察院調查 8 所頂大年閒置 60 餘台形成蚊子儀器；韓國 2026 全面清查閒置設備）。採購端迎來 Agentic AI 轉型，Gartner 預估 2028 年 90% B2B 採購由 AI Agent 中介。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-danger">B. But</span></td>
+                                <td><strong>深層挑戰</strong></td>
+                                <td>校內系統只登帳無稼動率；端到端 LLM 庫存決策成本高出 32.1%（幻覺稅），多步驟穩定度 pass^8 &lt; 25%；電商 Agent 不懂台灣《政府採購法》15 萬門檻與最低耐用年限。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-success">C. Cure</span></td>
+                                <td><strong>解藥與方案</strong></td>
+                                <td>提出 LabSteward：融合公法知識與確定性工具調用之雙模組 AI Agent，涵蓋「管理」（導入、借還、殘值、報廢）與「採購」（確認、查庫存、比價、清單）。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-info">D. Development</span></td>
+                                <td><strong>架構設計</strong></td>
+                                <td>LLM ReAct Planner 負責自然語言互動與協調，計算全數交由 SQLite、雙軌殘值模型、實體對齊演算法與 YAML 規則引擎 Guardrail。所有帳務異動均留存審計日誌並經 Human-in-the-loop 人工簽核。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-secondary">E. Experiments</span></td>
+                                <td><strong>實驗設計</strong></td>
+                                <td>建立 50 題真實情境測試集（25 管理、25 採購），對比 B1 人工 Excel、B2 單一 LLM 端到端、B3 純 RAG 問答。指標包含任務成功率、pass@4、MAPE、違規率與作業耗時。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-dark">F. Findings</span></td>
+                                <td><strong>預期成果</strong></td>
+                                <td>法規違規率降為 0%；「先查庫存再採購」流程減少逾 30% 重複採購；雙軌殘值提供帳面與市場公允區間；一鍵產出標準報廢與請購公文草稿。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5 Cores, 3 Trade-offs -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card p-4 h-100">
+                        <h5 class="fw-bold text-primary mb-3"><i class="fas fa-brain me-2"></i> 5 個核心思維模式 (Five Mindsets)</h5>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item"><strong>1. 帳實相符 (Record = Reality)</strong>：所有寫入經工具執行並留存稽核日誌，絕不允許 LLM 口頭改帳，支援 QR Code 盤點。</li>
+                            <li class="list-group-item"><strong>2. 全生命週期 (Lifecycle)</strong>：以嚴格狀態機（在庫→借出→維修→待報廢→已報廢）管理，非法轉移直接阻斷。</li>
+                            <li class="list-group-item"><strong>3. 先共享，再採購 (Utilize before Acquire)</strong>：採購首步強制排查庫存閒置，滿足則轉內部借調。</li>
+                            <li class="list-group-item"><strong>4. 合規與分級授權 (Compliance by Threshold)</strong>：門檻做成外部 YAML 規則檔，15 萬小額、150 萬公告金額由規則引擎判定。</li>
+                            <li class="list-group-item"><strong>5. 帳面價值 ≠ 經濟價值 (Book vs. Economic Value)</strong>：直線折舊無法指導決策，同時輸出市場公允殘值區間。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4 h-100">
+                        <h5 class="fw-bold text-primary mb-3"><i class="fas fa-balance-scale me-2"></i> 3 大專業爭論與權衡 (Three Trade-offs)</h5>
+                        <div class="flow-step">
+                            <strong>爭論一：折舊年限（法定年限 ↔ 實際經濟壽命）</strong>
+                            <p class="small text-muted mb-0">會計年限為合規稽核底線，汰換決策應看市場二手殘值；採用雙軌估值並標記信心度區間。</p>
+                        </div>
+                        <div class="flow-step">
+                            <strong>爭論二：資源配置（集中共享 ↔ 實驗室自有）</strong>
+                            <p class="small text-muted mb-0">高價低頻儀器走共享，低價高頻留在室內；當設備使用率低於 15% 時主動建議開放移撥。</p>
+                        </div>
+                        <div class="flow-step">
+                            <strong>爭論三：AI 自主程度（全自動 Agentic ↔ 人在迴路 HITL）</strong>
+                            <p class="small text-muted mb-0">LLM 僅作語意協調與秘書草稿，具法律效力之採購與報廢強制經由人類主管簽核授權。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,8 +312,8 @@
 
     <!-- Footer -->
     <footer class="text-center py-4 text-muted border-top mt-4">
-        <p class="mb-1"><strong>DIC-3 專題成果發布</strong> · LabSteward 實驗室財產管理 AI Agent</p>
-        <small>National University Computer Science and Information Engineering · 2026</small>
+        <p class="mb-1"><strong>DIC-3 專題成果發布</strong> · 資訊工程學系 · 2026</p>
+        <small>Follows 2020 A-Z SOP Specification · Powered by OpenSpec Spec-Driven Development</small>
     </footer>
 </div>
 

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>戶外運動即時空污風險預測與個人化活動排程 AI Agent - A4 橫式高密度資訊圖表</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b1329;
+            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            font-size: 11px;
+            line-height: 1.35;
+        }
+        .a4-landscape-page {
+            width: 297mm;
+            height: 210mm;
+            max-width: 297mm;
+            max-height: 210mm;
+            padding: 7mm 8mm;
+            margin: 0 auto;
+            background: radial-gradient(circle at 15% 15%, #131d3b 0%, #0b1329 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Header Bar */
+        .infographic-header {
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 5px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .main-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tag-pill {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .tag-blue { background: #1e40af; color: #93c5fd; border: 1px solid #3b82f6; }
+        .tag-cyan { background: #0e7490; color: #a5f3fc; border: 1px solid #06b6d4; }
+        .tag-amber { background: #78350f; color: #fde68a; border: 1px solid #d97706; }
+        .tag-emerald { background: #064e3b; color: #a7f3d0; border: 1px solid #10b981; }
+        
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr 1.05fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 6px;
+            flex-grow: 1;
+        }
+        .info-card {
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 6px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .card-header-label {
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 3px;
+            margin-bottom: 4px;
+        }
+        .num-badge {
+            font-size: 10px;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .num-a { background: #ef4444; color: #fff; }
+        .num-b { background: #f97316; color: #fff; }
+        .num-c { background: #06b6d4; color: #fff; }
+        .num-d { background: #3b82f6; color: #fff; }
+        .num-e { background: #8b5cf6; color: #fff; }
+        .num-f { background: #10b981; color: #fff; }
+
+        /* Data Callouts & Metrics */
+        .kpi-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+        .kpi-box {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+        }
+        .kpi-val {
+            font-size: 14px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+        .kpi-lbl {
+            font-size: 8.5px;
+            color: #94a3b8;
+            line-height: 1.1;
+        }
+        .text-red { color: #f87171; }
+        .text-cyan { color: #38bdf8; }
+        .text-emerald { color: #34d399; }
+        .text-amber { color: #fbbf24; }
+        .text-purple { color: #c084fc; }
+
+        /* Flow list & Details */
+        .dense-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin-bottom: 3px;
+            font-size: 9.8px;
+            line-height: 1.25;
+        }
+        .dense-item i {
+            margin-top: 2px;
+            font-size: 9px;
+            flex-shrink: 0;
+        }
+        .code-box {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            padding: 3px 5px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 8.8px;
+            color: #38bdf8;
+            margin-top: 2px;
+        }
+        .table-mini {
+            width: 100%;
+            font-size: 9px;
+            margin-top: 2px;
+            border-collapse: collapse;
+        }
+        .table-mini th {
+            color: #94a3b8;
+            font-weight: 600;
+            border-bottom: 1px solid #334155;
+            padding: 1px 3px;
+        }
+        .table-mini td {
+            padding: 2px 3px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        /* Footer */
+        .infographic-footer {
+            border-top: 1px solid #1e293b;
+            padding-top: 4px;
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="a4-landscape-page">
+    <!-- Header -->
+    <div class="infographic-header">
+        <div>
+            <div class="main-title">
+                <i class="fas fa-lungs text-cyan"></i>
+                戶外運動即時空污風險預測與個人化活動排程 AI Agent
+            </div>
+            <div style="font-size: 9.5px; color: #94a3b8; margin-top: 1px;">
+                Exercise-Oriented Real-time Air Quality Forecasting & Whitelist Guardrail Agent for Outdoor Runners
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <span class="tag-pill tag-blue"><i class="fas fa-shield-alt me-1"></i>2020 A-Z SOP</span>
+            <span class="tag-pill tag-cyan"><i class="fas fa-microchip me-1"></i>OpenSpec SDD</span>
+            <span class="tag-pill tag-emerald"><i class="fas fa-check-circle me-1"></i>No Fake Data 嚴謹規範</span>
+        </div>
+    </div>
+
+    <!-- 6 High Density Sections: A to F Grid -->
+    <div class="grid-container">
+
+        <!-- [1.0] A. Attention Getter -->
+        <div class="info-card" style="border-top: 3px solid #ef4444;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-a">[1.0] A</span> Attention Getter：慢跑換氣暴增與空污反噬</span>
+                    <span class="tag-pill tag-amber">生理衝擊數據</span>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi-box">
+                        <div class="kpi-val text-red">8 ~ 15 倍</div>
+                        <div class="kpi-lbl">[1.1] 跑步換氣量暴增<br>(50~100 L/min vs 6L)</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-val text-amber">50% 減半</div>
+                        <div class="kpi-lbl">[1.2] PM2.5≥25 μg/m³<br>運動防死效益直接腰斬</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-val text-red">0% 歸零</div>
+                        <div class="kpi-lbl">[1.3] PM2.5≥35 μg/m³<br>運動抗癌保護效益喪失</div>
+                    </div>
+                </div>
+                <div class="dense-item text-slate-300">
+                    <i class="fas fa-file-medical-alt text-red"></i>
+                    <div><strong>[1.4] 國際頂級醫學實證 (BMC Medicine & Lancet)</strong>：興大 150 萬人 10 年追蹤研究證實高空污抵消運動保護；Lancet 證實高污染街頭健走 2 小時引發<strong>急性動脈血管變硬</strong>。</div>
+                </div>
+                <div class="dense-item text-slate-300">
+                    <i class="fas fa-map-marker-alt text-amber"></i>
+                    <div><strong>[1.5] 臺灣在地空污季新聞 (10月至隔年4月)</strong>：臺中西屯、忠明、沙鹿測站受背風渦旋影響頻現 AQI 橘燈/紅爆，夜跑族在下班廢氣與低空沉降中「自以為養生，實則肺泡吸毒跑」。</div>
+                </div>
+            </div>
+            <div class="code-box">醫學痛點：PM2.5 穿透肺泡微血管 → 誘發全身發炎應激 → 運動員反受心血管與血栓威脅</div>
+        </div>
+
+        <!-- [2.0] B. But (挑戰) -->
+        <div class="info-card" style="border-top: 3px solid #f97316;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-b">[2.0] B</span> But：現有系統缺陷與 LLM 越權痛點</span>
+                    <span class="tag-pill tag-amber">四大技術挑戰</span>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-history text-amber"></i>
+                    <div><strong>[2.1] 數據被動滯後，無短期未來趨勢</strong>：官方 App 僅呈現整點歷史監測單點數值，缺乏未來 1~6 小時超局部動態預測，跑者無法預知出門後空氣走勢。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-user-slash text-red"></i>
+                    <div><strong>[2.2] 缺乏個人化生活推理機制</strong>：無法根據跑者體況（氣喘、鼻過敏）、預計跑步里程與時段，自動推算黃金時間窗或建議 HEPA 清淨機室內跑備案。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-calculator text-red"></i>
+                    <div><strong>[2.3] LLM 產生嚴重「數值幻覺稅」</strong>：直接詢問 LLM 測站預測數值，模型基於機率亂編虛假 PM2.5 濃度，無法滿足環境健康預報要求。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-exclamation-triangle text-red"></i>
+                    <div><strong>[2.4] 致命越權捏造醫療處方</strong>：使用者詢問「胸悶想跑步」時，純 LLM 常越權給予用藥劑量與安全保證，違反《醫療法》與 AI 對齊底線。</div>
+                </div>
+            </div>
+            <div class="code-box" style="color: #f87171;">痛點總結：被動查表無法決策 + LLM 數值幻覺 + 越權捏造醫療建議 = 致命風險</div>
+        </div>
+
+        <!-- [3.0] C. Cure (解藥) -->
+        <div class="info-card" style="border-top: 3px solid #06b6d4;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-c">[3.0] C</span> Cure：工具導向 AI Agent 新範式</span>
+                    <span class="tag-pill tag-cyan">三位一體解方</span>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-brain text-cyan"></i>
+                    <div><strong>[3.1] 解耦決策：LLM 協調 + 確定性工具</strong>：LLM 僅負責自然語言意圖理解與槽位澄清，數值預測與法規對齊 100% 委派確定性工具。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-project-diagram text-cyan"></i>
+                    <div><strong>[3.2] 三位一體核心融合架構</strong>：
+                        <ul class="ps-3 mb-0" style="font-size: 9.2px;">
+                            <li>① <strong>環境部即時 OpenAPI</strong>：即時串流觀測數據與氣象參數。</li>
+                            <li>② <strong>短期滾動時間序列模型</strong>：預測未來 1~6 小時 AQI 趨勢。</li>
+                            <li>③ <strong>官方衛教規則庫</strong>：環境部與國健署 AQI 活動防護矩陣。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-calendar-check text-emerald"></i>
+                    <div><strong>[3.3] 運動排程最佳化 (Optimal Exercise Window)</strong>：由被動看數值進化為主動計算「最低暴露運動時間窗」與「室內健身房備案」。</div>
+                </div>
+            </div>
+            <div class="code-box" style="color: #67e8f9;">典範轉移：從「被動查詢歷史數值」轉變為「前瞻時間窗推薦 + 零醫療越權防護」</div>
+        </div>
+
+        <!-- [4.0] D. Development (方法) -->
+        <div class="info-card" style="border-top: 3px solid #3b82f6;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-d">[4.0] D</span> Development：系統架構與白名單工具</span>
+                    <span class="tag-pill tag-blue">FastAPI + LangChain</span>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-server text-cyan"></i>
+                    <div><strong>[4.1] 技術堆疊分層實作</strong>：FastAPI 異步微服務 + LangChain ReAct 狀態機調度 + SQLite 結構化存儲 + 全鏈路 Audit Log 記錄。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-list-check text-emerald"></i>
+                    <div><strong>[4.2] 嚴格白名單 Function Calling (4 大專屬工具)</strong>：
+                        <table class="table-mini">
+                            <tr><th>工具名稱</th><th>職責與確定性邊界</th></tr>
+                            <tr><td><code>get_moenv_realtime</code></td><td>抓取環境部西屯/忠明測站即時 PM2.5、風速、濕度</td></tr>
+                            <tr><td><code>predict_short_term_aqi</code></td><td>滾動時間序列回歸 (LightGBM/Ridge) 輸出未來 1~6h 趨勢</td></tr>
+                            <tr><td><code>query_official_guideline</code></td><td>國健署/環境部官方衛教指引硬性比對，防醫療越權</td></tr>
+                            <tr><td><code>optimize_schedule</code></td><td>比對偏好時段計算最低污染時間窗與室內備案</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-shield-virus text-amber"></i>
+                    <div><strong>[4.3] 醫療越權安全防火牆 (Safety Guardrail)</strong>：遇疾病自述或用藥諮詢，強制阻斷並降級回傳：「非醫療診斷，請停止激烈運動並諮詢醫師」。</div>
+                </div>
+            </div>
+            <div class="code-box" style="color: #93c5fd;">架構保障：白名單限制呼叫 + 官方指引硬比對 → 彻底阻絕 LLM 自由發揮醫療處方</div>
+        </div>
+
+        <!-- [5.0] E. Experiments (評估) -->
+        <div class="info-card" style="border-top: 3px solid #8b5cf6;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-e">[5.0] E</span> Experiments：滾動回測與 30+ 越界情境</span>
+                    <span class="tag-pill tag-blue">實證設計協定</span>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-database text-purple"></i>
+                    <div><strong>[5.1] 臺中測站觀測資料庫 (2024–2026)</strong>：涵蓋西屯、忠明、沙鹿、豐原等站每小時觀測串流，建立跨季逐時時間序列。</div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-chart-line text-cyan"></i>
+                    <div><strong>[5.2] 無未來洩漏之滾動回測 (Walk-Forward)</strong>：過去 72 小時滑動特徵，回測未來 1、2、3、6 小時 AQI 預測。對比三種 Baseline：
+                        <div style="font-size: 8.8px; color: #cbd5e1; margin-top: 1px;">
+                            • B1 延續基準 (Persistence) | • B2 統計 ARIMA | • B3 純 LLM 端到端
+                        </div>
+                    </div>
+                </div>
+                <div class="dense-item">
+                    <i class="fas fa-vial text-amber"></i>
+                    <div><strong>[5.3] 至少 30 個涵蓋異常/越界情境壓力測試集</strong>：
+                        <ul class="ps-3 mb-0" style="font-size: 9px;">
+                            <li>• <strong>醫療越權誘騙組 (10題)</strong>：誘使 Agent 診斷氣喘/用藥。</li>
+                            <li>• <strong>極端故障組 (10題)</strong>：測站斷線 (null) 或沙塵暴破表。</li>
+                            <li>• <strong>排程衝突組 (10題)</strong>：強行要求紅爆戶外長跑之阻斷。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="code-box" style="color: #d8b4fe;">評估原則：真實臺中環境歷史數據 + 嚴格 Walk-Forward 滾動檢驗 + 壓力情境集</div>
+        </div>
+
+        <!-- [6.0] F. Findings (預期產出) -->
+        <div class="info-card" style="border-top: 3px solid #10b981;">
+            <div>
+                <div class="card-header-label">
+                    <span class="text-white"><span class="num-badge num-f">[6.0] F</span> Findings：嚴謹預期成果 (Expected Outcomes)</span>
+                    <span class="tag-pill tag-emerald">嚴格不虛構數據</span>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi-box">
+                        <div class="kpi-val text-emerald">15% ~ 25%</div>
+                        <div class="kpi-lbl">[6.1] MAE / RMSE 改善率<br>(相較 Persistence 基線)</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-val text-cyan">100.0%</div>
+                        <div class="kpi-lbl">[6.2] 官方來源完全揭露率<br>(環境部測站+法規條文)</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-val text-emerald">100.0%</div>
+                        <div class="kpi-lbl">[6.3] 醫療越權安全阻斷率<br>(誘騙情境 0 越權)</div>
+                    </div>
+                </div>
+                <div class="dense-item text-slate-300">
+                    <i class="fas fa-check-double text-emerald"></i>
+                    <div><strong>[6.4] 提案階段規範恪守承諾</strong>：嚴格遵循「提案階段尚未實驗者僅列 Expected Outcomes，不虛構數據」，明訂預期在 MAE/RMSE 誤差改善之具體目標區間。</div>
+                </div>
+                <div class="dense-item text-slate-300">
+                    <i class="fas fa-shield-alt text-cyan"></i>
+                    <div><strong>[6.5] 100% 來源揭露與安全降級率</strong>：所有活動建議 100% 揭露測站來源與預測時戳；遇異常或醫療風險 100% 降級為保守指引，確保公法合規。</div>
+                </div>
+            </div>
+            <div class="code-box" style="color: #6ee7b7;">預期驗收：預測精度改善 15-25% + 100% 來源透明揭露 + 100% 零醫療違規越權</div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="infographic-footer">
+        <div>
+            <strong>DIC-3 專題第二階段更新報告</strong> · 戶外運動即時空污風險預測與活動排程 AI Agent
+        </div>
+        <div>
+            遵循 2020 A-Z SOP 規範 · OpenSpec Spec-Driven Development · 資訊工程學系
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
