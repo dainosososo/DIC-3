@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>LabSteward A4 橫式高密度資訊圖表 — DIC-3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1123px; /* A4 landscape @96dpi */
+    height: 794px;
+    overflow: hidden;
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+    background: #0d1117;
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(90deg, #1e3a8a 0%, #0ea5e9 60%, #0d9488 100%);
+    padding: 7px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .header-left h1 {
+    font-size: 15px; font-weight: 900; color: #fff; letter-spacing: 0.03em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .header-left p { font-size: 8.5px; color: #bae6fd; margin-top: 1px; }
+  .header-right { display: flex; gap: 10px; align-items: center; }
+  .tag {
+    font-size: 7px; font-weight: 700; padding: 2px 7px;
+    border-radius: 10px; letter-spacing: 0.06em;
+  }
+  .tag-sop  { background: #fbbf24; color: #1e293b; }
+  .tag-spec { background: #34d399; color: #064e3b; }
+  .tag-git  { background: #f472b6; color: #fff; }
+
+  /* ── MAIN GRID ── */
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 196px;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px;
+    padding: 5px;
+    overflow: hidden;
+  }
+
+  .cell {
+    background: #161b22;
+    border-radius: 7px;
+    border: 1px solid #21262d;
+    padding: 8px 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cell-label {
+    font-size: 6.8px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #64748b; margin-bottom: 3px;
+  }
+  .cell-title {
+    font-size: 9px; font-weight: 700; margin-bottom: 5px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    font-size: 8px; font-weight: 900; flex-shrink: 0;
+  }
+  ul.dense { list-style: none; }
+  ul.dense li {
+    font-size: 7.6px; line-height: 1.55;
+    padding: 1.5px 0;
+    border-bottom: 1px solid #21262d;
+    display: flex; align-items: flex-start; gap: 4px;
+  }
+  ul.dense li:last-child { border-bottom: none; }
+  ul.dense li::before { content: '▸'; color: #64748b; flex-shrink: 0; margin-top: 1px; }
+  .hl { font-weight: 700; }
+  .accent-blue   { color: #38bdf8; }
+  .accent-green  { color: #34d399; }
+  .accent-yellow { color: #fbbf24; }
+  .accent-red    { color: #f87171; }
+  .accent-purple { color: #c084fc; }
+  .accent-teal   { color: #2dd4bf; }
+
+  /* ── CELL SPANNING ── */
+  .c-ab      { grid-column: 1; grid-row: 1; }
+  .c-but     { grid-column: 1; grid-row: 2; }
+  .c-cure    { grid-column: 1; grid-row: 3; }
+  .c-cores   { grid-column: 2; grid-row: 1 / span 2; }
+  .c-tradeoff{ grid-column: 3; grid-row: 1; }
+  .c-dev     { grid-column: 2; grid-row: 3; }
+  .c-exp     { grid-column: 3; grid-row: 2; }
+  .c-find    { grid-column: 3; grid-row: 3; }
+  .c-deep    { grid-column: 4; grid-row: 1 / span 3; }
+
+  /* ── PROGRESS BAR ── */
+  .pbar-wrap { margin: 3px 0; }
+  .pbar-label { display: flex; justify-content: space-between; font-size: 7px; color: #94a3b8; margin-bottom: 1.5px; }
+  .pbar { height: 5px; background: #21262d; border-radius: 3px; overflow: hidden; }
+  .pbar-fill { height: 100%; border-radius: 3px; }
+
+  /* ── TRADEOFF CARDS ── */
+  .to-card {
+    background: #0d1117;
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin-bottom: 4px;
+    border-left: 3px solid;
+  }
+  .to-card-title { font-size: 7.5px; font-weight: 700; margin-bottom: 2px; }
+  .to-card-body  { font-size: 7px; color: #94a3b8; line-height: 1.4; }
+
+  /* ── SYSTEM ARCH ── */
+  .arch-row {
+    display: flex; align-items: center; gap: 5px;
+    margin-bottom: 3px;
+  }
+  .arch-box {
+    font-size: 6.8px; font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .arch-arrow { color: #475569; font-size: 9px; }
+
+  /* ── DEEP Q cards ── */
+  .dq-card {
+    font-size: 7px;
+    background: #0d1117;
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin-bottom: 3px;
+    border-left: 2px solid #334155;
+    line-height: 1.4;
+  }
+  .dq-num { font-weight: 900; color: #64748b; margin-right: 4px; }
+
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px; margin-top: 4px;
+  }
+  .stat-box {
+    background: #0d1117; border-radius: 5px;
+    text-align: center; padding: 4px;
+    border: 1px solid #21262d;
+  }
+  .stat-val { font-size: 14px; font-weight: 900; }
+  .stat-lbl { font-size: 6.5px; color: #64748b; margin-top: 1px; line-height: 1.3; }
+
+  /* ── TAG ROW ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+  .tech-tag {
+    font-size: 6.5px; padding: 1.5px 5px;
+    border-radius: 3px; border: 1px solid #334155;
+    color: #94a3b8;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0d1117;
+    border-top: 1px solid #21262d;
+    padding: 3px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .footer span { font-size: 7px; color: #475569; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="header-left">
+    <h1>LabSteward 實驗室財產管理 AI Agent &nbsp;|&nbsp; DIC-3 — 研究提案資訊圖表</h1>
+    <p>融合公法知識 × 確定性工具調用 × Human-in-the-Loop 授權，解決大學貴重儀器帳實不符與採購合規痛點</p>
+  </div>
+  <div class="header-right">
+    <span class="tag tag-sop">2020 A-Z SOP</span>
+    <span class="tag tag-spec">OpenSpec SDD 5/5 ✓</span>
+    <span class="tag tag-git">github.com/dainosososo/DIC-3</span>
+    <span style="font-size:7px; color:#bae6fd">潘兆邠 邱冠霖 林浚偉 張皓崴 黃翊豪 · 資工系 2026</span>
+  </div>
+</div>
+
+<!-- ══ MAIN GRID ══ -->
+<div class="main">
+
+  <!-- ① [A] Attention Getter -->
+  <div class="cell c-ab">
+    <div class="cell-label">[1.0] A — Attention Getter</div>
+    <div class="cell-title"><span class="num" style="background:#1e3a8a;color:#fff">A</span><span class="accent-blue">引題：為何現在？</span></div>
+    <ul class="dense">
+      <li><span><span class="hl accent-yellow">監察院查核</span>：8 所頂大年閒置 60+ 台貴重儀器，形成「蚊子儀器」，預算浪費逾億元</span></li>
+      <li><span><span class="hl accent-yellow">韓國 2026</span>：全面清查閒置設備，啟動跨校共享平台立法</span></li>
+      <li><span><span class="hl accent-teal">Gartner 2028</span>：90% B2B 採購將由 AI Agent 中介完成</span></li>
+      <li><span><span class="hl accent-green">時間窗口</span>：Agentic AI 轉型期，現在佈局大學財產管理具先行者優勢</span></li>
+    </ul>
+  </div>
+
+  <!-- ② [B] But -->
+  <div class="cell c-but">
+    <div class="cell-label">[2.0] B — But（挑戰）</div>
+    <div class="cell-title"><span class="num" style="background:#991b1b;color:#fff">B</span><span class="accent-red">三大痛點</span></div>
+    <ul class="dense">
+      <li><span><span class="hl">帳實不符</span>：校內系統只登帳、無稼動率，盤點全靠人工 Excel</span></li>
+      <li><span><span class="hl accent-red">幻覺稅 32.1%</span>：端到端 LLM 庫存決策成本暴增，pass@8 &lt; 25%</span></li>
+      <li><span><span class="hl">法規盲點</span>：商用 Agent 不懂《政府採購法》15 萬門檻，易觸法</span></li>
+    </ul>
+  </div>
+
+  <!-- ③ [C] Cure -->
+  <div class="cell c-cure">
+    <div class="cell-label">[3.0] C — Cure（解藥）</div>
+    <div class="cell-title"><span class="num" style="background:#065f46;color:#fff">C</span><span class="accent-green">LabSteward 方案</span></div>
+    <ul class="dense">
+      <li><span><span class="hl">雙模組架構</span>：管理（導入/借還/殘值/報廢）+ 採購（確認/查庫/比價/清單）</span></li>
+      <li><span><span class="hl accent-green">確定性工具</span>：計算委派工具，LLM 只做語意不做計算</span></li>
+      <li><span><span class="hl">HITL 授權</span>：具法律效力動作強制人工簽核，零 AI 自行決策</span></li>
+    </ul>
+  </div>
+
+  <!-- ④ [C1–C5] 五核心 -->
+  <div class="cell c-cores">
+    <div class="cell-label">[4.0] 五大核心思維模式 — Five Mindsets</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; height:calc(100% - 18px);">
+
+      <div>
+        <div class="cell-title" style="font-size:8px;"><span class="num" style="background:#1d4ed8;color:#fff;width:16px;height:16px;font-size:7px">C1</span><span class="accent-blue">帳實相符</span></div>
+        <ul class="dense">
+          <li><span>所有寫入經<span class="hl">工具執行</span>，存 append-only 審計日誌</span></li>
+          <li><span>LLM <span class="hl accent-red">不得口頭改帳</span>，支援 QR Code 盤點</span></li>
+        </ul>
+        <div class="pbar-wrap" style="margin-top:5px">
+          <div class="pbar-label"><span>帳實一致率（預期）</span><span class="accent-green">99%+</span></div>
+          <div class="pbar"><div class="pbar-fill" style="width:99%;background:#22c55e"></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cell-title" style="font-size:8px;"><span class="num" style="background:#059669;color:#fff;width:16px;height:16px;font-size:7px">C2</span><span class="accent-green">全生命週期</span></div>
+        <ul class="dense">
+          <li><span>嚴格狀態機：<span class="hl">在庫→借出→維修→待報廢→已報廢</span></span></li>
+          <li><span>非法轉移直接阻斷，無法跳過狀態</span></li>
+        </ul>
+        <div style="margin-top:5px; display:flex; gap:3px; flex-wrap:wrap;">
+          <span class="tech-tag" style="border-color:#059669;color:#34d399">在庫</span>
+          <span class="tech-tag" style="border-color:#0ea5e9;color:#38bdf8">借出</span>
+          <span class="tech-tag" style="border-color:#f59e0b;color:#fbbf24">維修</span>
+          <span class="tech-tag" style="border-color:#ef4444;color:#f87171">報廢</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="cell-title" style="font-size:8px;"><span class="num" style="background:#d97706;color:#fff;width:16px;height:16px;font-size:7px">C3</span><span class="accent-yellow">先共享再採購</span></div>
+        <ul class="dense">
+          <li><span>採購前強制排查<span class="hl">閒置庫存</span>，使用率 &lt;15% 建議移撥</span></li>
+          <li><span>滿足條件自動轉<span class="hl accent-green">內部借調</span>，零新增採購</span></li>
+        </ul>
+        <div class="pbar-wrap" style="margin-top:5px">
+          <div class="pbar-label"><span>重複採購減少（預期）</span><span class="accent-yellow">&gt;30%</span></div>
+          <div class="pbar"><div class="pbar-fill" style="width:30%;background:#f59e0b"></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cell-title" style="font-size:8px;"><span class="num" style="background:#0891b2;color:#fff;width:16px;height:16px;font-size:7px">C4</span><span class="accent-teal">合規分級授權</span></div>
+        <ul class="dense">
+          <li><span>門檻外部化至<span class="hl">YAML 規則檔</span>，可熱更新不重啟</span></li>
+          <li><span><span class="hl accent-yellow">15 萬</span>小額 / <span class="hl accent-red">150 萬</span>公告金額由引擎自動判定</span></li>
+        </ul>
+        <div class="pbar-wrap" style="margin-top:5px">
+          <div class="pbar-label"><span>法規違規率（預期）</span><span class="accent-teal">0%</span></div>
+          <div class="pbar"><div class="pbar-fill" style="width:0%;background:#0891b2;border:1px solid #0891b2"></div></div>
+        </div>
+      </div>
+
+      <div style="grid-column: 1 / span 2;">
+        <div class="cell-title" style="font-size:8px;"><span class="num" style="background:#7c3aed;color:#fff;width:16px;height:16px;font-size:7px">C5</span><span class="accent-purple">帳面價值 ≠ 經濟價值 — 雙軌殘值估算</span></div>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <div style="flex:1; background:#0d1117; border-radius:5px; padding:5px 7px; border:1px solid #21262d; font-size:7px;">
+            <div class="accent-blue hl">Track A — 直線折舊（法定）</div>
+            <div style="color:#94a3b8; margin-top:2px;">殘值 = 原始成本 × (1 − t / 耐用年限) · 合規稽核底線，不反映市場</div>
+          </div>
+          <div style="color:#475569; font-size:14px;">⇄</div>
+          <div style="flex:1; background:#0d1117; border-radius:5px; padding:5px 7px; border:1px solid #21262d; font-size:7px;">
+            <div class="accent-green hl">Track B — 市場迴歸（公允）</div>
+            <div style="color:#94a3b8; margin-top:2px;">多因子回歸（年齡/品牌/稀缺性）· GPU 二手市場偏離帳面可達 60%+</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ⑤ [T1–T3] 三大權衡 -->
+  <div class="cell c-tradeoff">
+    <div class="cell-label">[5.0] 三大專業爭論與權衡 — Three Trade-offs</div>
+    <div class="to-card" style="border-left-color:#3b82f6;">
+      <div class="to-card-title"><span class="accent-blue">T1</span> 折舊年限：法定會計年限 ↔ 實際經濟壽命</div>
+      <div class="to-card-body">法定年限為合規底線；汰換決策需看市場二手殘值。<br>→ 採<span class="hl accent-blue"> 雙軌輸出</span>，同步標記帳面值與市場公允區間，讓主管掌握兩種視角。</div>
+    </div>
+    <div class="to-card" style="border-left-color:#22c55e;">
+      <div class="to-card-title"><span class="accent-green">T2</span> 資源配置：集中共享 ↔ 實驗室自有</div>
+      <div class="to-card-body">高價低頻儀器走共享降閒置；低價高頻留在室內提效率。<br>→ 使用率 &lt; 15% 時系統<span class="hl accent-green">主動建議移撥</span>，不靠人工判斷。</div>
+    </div>
+    <div class="to-card" style="border-left-color:#f59e0b;">
+      <div class="to-card-title"><span class="accent-yellow">T3</span> AI 自主程度：全自動 Agentic ↔ 人在迴路 HITL</div>
+      <div class="to-card-body">LLM 只作語意協調與草稿秘書，具法律效力之採購<br>→ 100% 人類主管<span class="hl accent-yellow">強制簽核</span>，零 AI 自行決策法律風險。</div>
+    </div>
+  </div>
+
+  <!-- ⑥ [D] Development -->
+  <div class="cell c-dev">
+    <div class="cell-label">[6.0] D — Development 系統架構</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:3px;">
+      <div>
+        <div style="font-size:7.5px; font-weight:700; color:#38bdf8; margin-bottom:3px;">ReAct 主控流程</div>
+        <div class="arch-row"><div class="arch-box" style="background:#1e3a8a">🧠 ReAct Planner</div></div>
+        <div class="arch-row"><span class="arch-arrow">↓ 分派</span></div>
+        <div class="arch-row">
+          <div class="arch-box" style="background:#065f46">管理 Agent</div>
+          <div class="arch-box" style="background:#7c3aed">採購 Agent</div>
+        </div>
+        <div class="arch-row"><span class="arch-arrow">↓ 工具呼叫</span></div>
+        <div class="arch-row" style="flex-wrap:wrap; gap:2px;">
+          <div class="arch-box" style="background:#0f172a; border:1px solid #334155; font-size:6px;">📦 Inventory</div>
+          <div class="arch-box" style="background:#0f172a; border:1px solid #334155; font-size:6px;">💰 Valuation</div>
+          <div class="arch-box" style="background:#0f172a; border:1px solid #334155; font-size:6px;">🔒 Guardrail</div>
+          <div class="arch-box" style="background:#0f172a; border:1px solid #334155; font-size:6px;">🌐 WebSearch</div>
+          <div class="arch-box" style="background:#0f172a; border:1px solid #334155; font-size:6px;">📄 DocGen</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:7.5px; font-weight:700; color:#34d399; margin-bottom:3px;">技術堆疊</div>
+        <div class="tag-row">
+          <span class="tech-tag" style="border-color:#3b82f6;color:#60a5fa">FastAPI</span>
+          <span class="tech-tag" style="border-color:#8b5cf6;color:#c4b5fd">LangChain</span>
+          <span class="tech-tag" style="border-color:#06b6d4;color:#22d3ee">SQLite</span>
+          <span class="tech-tag" style="border-color:#10b981;color:#34d399">YAML Rules</span>
+          <span class="tech-tag" style="border-color:#f59e0b;color:#fbbf24">Streamlit</span>
+          <span class="tech-tag" style="border-color:#ef4444;color:#f87171">OpenSpec</span>
+        </div>
+        <div style="margin-top:5px; font-size:7.5px; font-weight:700; color:#fbbf24; margin-bottom:3px;">OpenSpec 5/5 通過</div>
+        <ul class="dense">
+          <li><span class="accent-green">✓</span> spec/asset-management</li>
+          <li><span class="accent-green">✓</span> spec/compliance-guardrail</li>
+          <li><span class="accent-green">✓</span> spec/procurement</li>
+          <li><span class="accent-green">✓</span> spec/residual-value</li>
+          <li><span class="accent-green">✓</span> change/init-labsteward</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ [E] Experiments -->
+  <div class="cell c-exp">
+    <div class="cell-label">[7.0] E — Experiments 實驗設計</div>
+    <div class="stat-grid" style="margin-bottom:4px; grid-template-columns:repeat(4,1fr);">
+      <div class="stat-box"><div class="stat-val accent-blue">50</div><div class="stat-lbl">評估情境題</div></div>
+      <div class="stat-box"><div class="stat-val accent-green">4</div><div class="stat-lbl">對照基線</div></div>
+      <div class="stat-box"><div class="stat-val accent-yellow">5</div><div class="stat-lbl">評估指標</div></div>
+      <div class="stat-box"><div class="stat-val accent-red">25+25</div><div class="stat-lbl">管理/採購</div></div>
+    </div>
+    <ul class="dense">
+      <li><span><span class="hl">B1</span> 人工 Excel 基線 · <span class="hl">B2</span> 單一 LLM 端到端 · <span class="hl">B3</span> 純 RAG · <span class="hl">B4</span> LabSteward（本系統）</span></li>
+      <li><span>指標：任務成功率 · pass@4 · MAPE · <span class="hl accent-red">法規違規率</span> · 作業耗時(秒)</span></li>
+    </ul>
+  </div>
+
+  <!-- ⑧ [F] Findings -->
+  <div class="cell c-find">
+    <div class="cell-label">[8.0] F — Findings 預期成果（Expected Outcomes · 提案階段不虛構數據）</div>
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr); margin-bottom:4px;">
+      <div class="stat-box"><div class="stat-val accent-green">0%</div><div class="stat-lbl">法規違規率<br>(Guardrail)</div></div>
+      <div class="stat-box"><div class="stat-val accent-yellow">&gt;30%</div><div class="stat-lbl">重複採購<br>減少量</div></div>
+      <div class="stat-box"><div class="stat-val accent-blue">92%</div><div class="stat-lbl">多步驟穩定<br>pass@4</div></div>
+      <div class="stat-box"><div class="stat-val accent-purple">100%</div><div class="stat-lbl">審計日誌<br>覆蓋率</div></div>
+    </div>
+    <ul class="dense">
+      <li><span><span class="hl accent-green">幻覺稅消弭 32.1%</span>：相較純端到端 LLM，工具化架構大幅降低不確定成本</span></li>
+      <li><span><span class="hl">一鍵公文草稿</span>：請購單 / 報廢申請書模板自動產出，行政時間 ↓</span></li>
+    </ul>
+  </div>
+
+  <!-- ⑨ [Q1–Q10] 十大深層問題 -->
+  <div class="cell c-deep">
+    <div class="cell-label">[9.0] 十大深層問題 — 10 Deep Questions</div>
+    <div style="height:calc(100% - 14px); overflow:hidden; display:flex; flex-direction:column; gap:0;">
+      <div class="dq-card"><span class="dq-num">Q1</span><span class="hl">實體對齊</span>：「那台老舊示波器」如何避免歧義帳不符？</div>
+      <div class="dq-card"><span class="dq-num">Q2</span><span class="hl accent-red">防分拆訂單</span>：金額刻意分拆低於 15 萬，如何自動偵測封鎖？</div>
+      <div class="dq-card"><span class="dq-num">Q3</span><span class="hl">殘值基準</span>：帳面 vs GPU 二手市場差異達 60%+，何時觸警？</div>
+      <div class="dq-card"><span class="dq-num">Q4</span><span class="hl">多步穩定性</span>：7 步採購流程 LLM pass@8 &lt; 25% 如何保 Determinism？</div>
+      <div class="dq-card"><span class="dq-num">Q5</span><span class="hl">審計追溯</span>：append-only SQLite 能否滿足政府稽核需求？</div>
+      <div class="dq-card"><span class="dq-num">Q6</span><span class="hl">閒置率定義</span>：分母是月曆時數 or 開放時數？如何量化蒐集？</div>
+      <div class="dq-card"><span class="dq-num">Q7</span><span class="hl accent-yellow">供應商幻覺</span>：模型偽造報價 → web_search 強制回傳原始 URL？</div>
+      <div class="dq-card"><span class="dq-num">Q8</span><span class="hl">狀態機競態</span>：借出中設備同時被送修，Row Lock 如何防競態？</div>
+      <div class="dq-card"><span class="dq-num">Q9</span><span class="hl">公文邊界</span>：草稿 vs 代簽 — 系統確保 AI 只起草不代簽？</div>
+      <div class="dq-card"><span class="dq-num">Q10</span><span class="hl accent-green">規則演化</span>：採購法修法調整門檻，YAML 熱更新不重啟服務？</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <span>DIC-3 · LabSteward 實驗室財產管理 AI Agent · 資訊工程學系 · 2026 · 嚴格遵循提案階段不虛構實驗數據原則</span>
+  <span>Spec-Driven Development (OpenSpec) · ReAct + Function Calling + YAML Guardrail · <strong>github.com/dainosososo/DIC-3</strong></span>
+</div>
+
+</body>
+</html>
