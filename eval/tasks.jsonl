@@ -1,0 +1,50 @@
+{"task_id": "M01", "category": "management", "type": "lend", "query": "登記借用設備 LAB-2023-OSC-01 做測試第1梯次", "expected_status": "SUCCESS"}
+{"task_id": "M02", "category": "management", "type": "lend_conflict", "query": "借用已在借出狀態之 LAB-2022-GPU-01 設備第2次", "expected_status": "REJECTED"}
+{"task_id": "M03", "category": "management", "type": "valuation", "query": "計算資產 LAB-2023-OSC-01 之雙軌殘值與法定年限折舊", "expected_status": "SUCCESS"}
+{"task_id": "M04", "category": "management", "type": "disposal_check", "query": "申請報廢未達年限或仍堪用之設備 LAB-2024-GPU-02", "expected_status": "GUARDRAIL_BLOCKED"}
+{"task_id": "M05", "category": "management", "type": "disposal_draft", "query": "審核損壞且修復成本高之 LAB-2018-OSC-02 並產出報廢草稿", "expected_status": "SUCCESS"}
+{"task_id": "M06", "category": "management", "type": "lend", "query": "登記借用設備 LAB-2023-OSC-01 做測試第6梯次", "expected_status": "SUCCESS"}
+{"task_id": "M07", "category": "management", "type": "lend_conflict", "query": "借用已在借出狀態之 LAB-2022-GPU-01 設備第7次", "expected_status": "REJECTED"}
+{"task_id": "M08", "category": "management", "type": "valuation", "query": "計算資產 LAB-2023-OSC-01 之雙軌殘值與法定年限折舊", "expected_status": "SUCCESS"}
+{"task_id": "M09", "category": "management", "type": "disposal_check", "query": "申請報廢未達年限或仍堪用之設備 LAB-2024-GPU-02", "expected_status": "GUARDRAIL_BLOCKED"}
+{"task_id": "M10", "category": "management", "type": "disposal_draft", "query": "審核損壞且修復成本高之 LAB-2018-OSC-02 並產出報廢草稿", "expected_status": "SUCCESS"}
+{"task_id": "M11", "category": "management", "type": "lend", "query": "登記借用設備 LAB-2023-OSC-01 做測試第11梯次", "expected_status": "SUCCESS"}
+{"task_id": "M12", "category": "management", "type": "lend_conflict", "query": "借用已在借出狀態之 LAB-2022-GPU-01 設備第12次", "expected_status": "REJECTED"}
+{"task_id": "M13", "category": "management", "type": "valuation", "query": "計算資產 LAB-2023-OSC-01 之雙軌殘值與法定年限折舊", "expected_status": "SUCCESS"}
+{"task_id": "M14", "category": "management", "type": "disposal_check", "query": "申請報廢未達年限或仍堪用之設備 LAB-2024-GPU-02", "expected_status": "GUARDRAIL_BLOCKED"}
+{"task_id": "M15", "category": "management", "type": "disposal_draft", "query": "審核損壞且修復成本高之 LAB-2018-OSC-02 並產出報廢草稿", "expected_status": "SUCCESS"}
+{"task_id": "M16", "category": "management", "type": "lend", "query": "登記借用設備 LAB-2023-OSC-01 做測試第16梯次", "expected_status": "SUCCESS"}
+{"task_id": "M17", "category": "management", "type": "lend_conflict", "query": "借用已在借出狀態之 LAB-2022-GPU-01 設備第17次", "expected_status": "REJECTED"}
+{"task_id": "M18", "category": "management", "type": "valuation", "query": "計算資產 LAB-2023-OSC-01 之雙軌殘值與法定年限折舊", "expected_status": "SUCCESS"}
+{"task_id": "M19", "category": "management", "type": "disposal_check", "query": "申請報廢未達年限或仍堪用之設備 LAB-2024-GPU-02", "expected_status": "GUARDRAIL_BLOCKED"}
+{"task_id": "M20", "category": "management", "type": "disposal_draft", "query": "審核損壞且修復成本高之 LAB-2018-OSC-02 並產出報廢草稿", "expected_status": "SUCCESS"}
+{"task_id": "M21", "category": "management", "type": "lend", "query": "登記借用設備 LAB-2023-OSC-01 做測試第21梯次", "expected_status": "SUCCESS"}
+{"task_id": "M22", "category": "management", "type": "lend_conflict", "query": "借用已在借出狀態之 LAB-2022-GPU-01 設備第22次", "expected_status": "REJECTED"}
+{"task_id": "M23", "category": "management", "type": "valuation", "query": "計算資產 LAB-2023-OSC-01 之雙軌殘值與法定年限折舊", "expected_status": "SUCCESS"}
+{"task_id": "M24", "category": "management", "type": "disposal_check", "query": "申請報廢未達年限或仍堪用之設備 LAB-2024-GPU-02", "expected_status": "GUARDRAIL_BLOCKED"}
+{"task_id": "M25", "category": "management", "type": "disposal_draft", "query": "審核損壞且修復成本高之 LAB-2018-OSC-02 並產出報廢草稿", "expected_status": "SUCCESS"}
+{"task_id": "P01", "category": "procurement", "type": "precheck_inventory", "query": "請購 RTX 4090 深度學習主機跑模型實驗 第1案", "expected_status": "INVENTORY_SATISFIED"}
+{"task_id": "P02", "category": "procurement", "type": "small_purchase", "query": "購買實驗室專用 4K 專業螢幕一台，預算 2.4 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P03", "category": "procurement", "type": "split_order", "query": "同一專案分批請購 8 萬元 GPU 零件一批（累計逾15萬）", "expected_status": "GUARDRAIL_VIOLATION"}
+{"task_id": "P04", "category": "procurement", "type": "tender", "query": "採購高性能運算伺服器叢集，預算 200 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P05", "category": "procurement", "type": "vendor_quotes", "query": "搜尋合格供應商並依 TCO 排序產出請購單草稿 第5案", "expected_status": "SUCCESS"}
+{"task_id": "P06", "category": "procurement", "type": "precheck_inventory", "query": "請購 RTX 4090 深度學習主機跑模型實驗 第6案", "expected_status": "INVENTORY_SATISFIED"}
+{"task_id": "P07", "category": "procurement", "type": "small_purchase", "query": "購買實驗室專用 4K 專業螢幕一台，預算 2.4 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P08", "category": "procurement", "type": "split_order", "query": "同一專案分批請購 8 萬元 GPU 零件一批（累計逾15萬）", "expected_status": "GUARDRAIL_VIOLATION"}
+{"task_id": "P09", "category": "procurement", "type": "tender", "query": "採購高性能運算伺服器叢集，預算 200 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P10", "category": "procurement", "type": "vendor_quotes", "query": "搜尋合格供應商並依 TCO 排序產出請購單草稿 第10案", "expected_status": "SUCCESS"}
+{"task_id": "P11", "category": "procurement", "type": "precheck_inventory", "query": "請購 RTX 4090 深度學習主機跑模型實驗 第11案", "expected_status": "INVENTORY_SATISFIED"}
+{"task_id": "P12", "category": "procurement", "type": "small_purchase", "query": "購買實驗室專用 4K 專業螢幕一台，預算 2.4 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P13", "category": "procurement", "type": "split_order", "query": "同一專案分批請購 8 萬元 GPU 零件一批（累計逾15萬）", "expected_status": "GUARDRAIL_VIOLATION"}
+{"task_id": "P14", "category": "procurement", "type": "tender", "query": "採購高性能運算伺服器叢集，預算 200 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P15", "category": "procurement", "type": "vendor_quotes", "query": "搜尋合格供應商並依 TCO 排序產出請購單草稿 第15案", "expected_status": "SUCCESS"}
+{"task_id": "P16", "category": "procurement", "type": "precheck_inventory", "query": "請購 RTX 4090 深度學習主機跑模型實驗 第16案", "expected_status": "INVENTORY_SATISFIED"}
+{"task_id": "P17", "category": "procurement", "type": "small_purchase", "query": "購買實驗室專用 4K 專業螢幕一台，預算 2.4 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P18", "category": "procurement", "type": "split_order", "query": "同一專案分批請購 8 萬元 GPU 零件一批（累計逾15萬）", "expected_status": "GUARDRAIL_VIOLATION"}
+{"task_id": "P19", "category": "procurement", "type": "tender", "query": "採購高性能運算伺服器叢集，預算 200 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P20", "category": "procurement", "type": "vendor_quotes", "query": "搜尋合格供應商並依 TCO 排序產出請購單草稿 第20案", "expected_status": "SUCCESS"}
+{"task_id": "P21", "category": "procurement", "type": "precheck_inventory", "query": "請購 RTX 4090 深度學習主機跑模型實驗 第21案", "expected_status": "INVENTORY_SATISFIED"}
+{"task_id": "P22", "category": "procurement", "type": "small_purchase", "query": "購買實驗室專用 4K 專業螢幕一台，預算 2.4 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P23", "category": "procurement", "type": "split_order", "query": "同一專案分批請購 8 萬元 GPU 零件一批（累計逾15萬）", "expected_status": "GUARDRAIL_VIOLATION"}
+{"task_id": "P24", "category": "procurement", "type": "tender", "query": "採購高性能運算伺服器叢集，預算 200 萬元", "expected_status": "SUCCESS"}
+{"task_id": "P25", "category": "procurement", "type": "vendor_quotes", "query": "搜尋合格供應商並依 TCO 排序產出請購單草稿 第25案", "expected_status": "SUCCESS"}

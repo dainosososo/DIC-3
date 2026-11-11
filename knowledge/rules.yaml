@@ -1,0 +1,38 @@
+# Taiwan Public Procurement and University Asset Management Thresholds
+# National Central Government & University Standard Operating Procedure (NTD)
+
+procurement:
+  currency: "TWD"
+  thresholds:
+    small_purchase: 150000        # 小額採購門檻：15 萬元以下 (逕洽廠商，單位主管核可)
+    announcement: 1500000         # 公告金額門檻：150 萬元以上 (公開招標/取得報價)
+    supervision: 50000000         # 查核金額：5,000 萬元以上
+    mega: 200000000               # 巨額採購：2 億元以上
+  quotation_rules:
+    under_small_purchase:
+      min_quotes: 1
+      procedure: "逕洽廠商採購，由單位主管核決"
+    between_small_and_announcement:
+      min_quotes: 3
+      procedure: "未達公告金額：公開取得 3 家以上廠商書面報價或企劃書"
+    above_announcement:
+      min_quotes: 3
+      procedure: "公告金額以上：刊登政府採購公報，公開招標，須附詳細價格分析"
+  anti_split_order:
+    time_window_days: 30          # 偵測回溯天數
+    cumulative_small_limit: 150000
+    semantic_similarity_threshold: 0.75
+
+asset_management:
+  capital_asset:
+    min_cost: 10000               # 單價 1 萬元以上
+    min_lifespan_years: 2         # 耐用年限 2 年以上
+  depreciation:
+    default_book_method: "straight_line"
+    default_market_method: "log_linear"
+    bootstrap_samples: 1000
+    confidence_level: 0.80
+  disposal_rules:
+    require_full_life: true
+    require_unrepairable: true
+    allow_transfer_if_functional: true

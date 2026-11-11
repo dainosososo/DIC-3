@@ -1,0 +1,13 @@
+listing_id,category_code,model_name,age_years,condition,original_price,asking_price,platform
+MKT-001,3140103,RTX 3090,3.5,normal,135000,42000,PTT_HardwareSale
+MKT-002,3140103,RTX 3090,4.0,normal,135000,36000,FacebookMarketplace
+MKT-003,3140103,RTX 4090,1.5,normal,128000,82000,PTT_HardwareSale
+MKT-004,3140103,RTX 4090,2.0,minor_flaw,128000,74000,Ruten
+MKT-005,3120101,Keysight 200MHz,2.5,normal,88000,58000,eBay_TW
+MKT-006,3120101,Keysight 200MHz,3.0,normal,88000,51000,Ruten
+MKT-007,3140101,Dell OptiPlex 7080,5.0,normal,36000,7500,Shopee
+MKT-008,3140102,ThinkPad P1,4.0,normal,65000,21000,PTT_nb-shopping
+MKT-009,3140102,ThinkPad P1,4.5,minor_flaw,65000,16500,FacebookMarketplace
+MKT-010,3140201,ASUS ProArt 32,1.0,normal,24000,18500,PTT_HardwareSale
+MKT-011,3120101,Tektronix 老舊四通道示波器,7.5,faulty,110000,9000,Ruten
+MKT-012,3140103,Xeon 運算節點,6.0,normal,260000,32000,ServerMonkey

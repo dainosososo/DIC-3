@@ -1,0 +1,9 @@
+asset_id,asset_name,category_code,cost,purchase_date,custodian,location,status,is_functional,utilization_rate,estimated_repair_cost
+LAB-2022-GPU-01,NVIDIA RTX 3090 深度學習主機,3140103,135000,2022-03-15,潘兆邠,資工館401室,ON_LOAN,1,0.85,0
+LAB-2023-OSC-01,Keysight 200MHz 數位示波器,3120101,88000,2023-05-10,林浚偉,資工館402室,IN_STOCK,1,0.40,0
+LAB-2024-GPU-02,NVIDIA RTX 4090 工作站,3140103,128000,2024-02-20,邱冠霖,資工館401室,IDLE,1,0.05,0
+LAB-2020-PC-01,Dell OptiPlex 7080 桌上型電腦,3140101,36000,2020-09-01,張皓崴,資工館403室,IN_STOCK,1,0.20,0
+LAB-2021-NB-01,ThinkPad P1 行動工作站,3140102,65000,2021-11-12,黃翊豪,資工館401室,ON_LOAN,1,0.70,0
+LAB-2018-OSC-02,Tektronix 老舊四通道示波器,3120101,110000,2018-04-10,指導教授,資工館402室,UNDER_MAINTENANCE,0,0.00,45000
+LAB-2019-SRV-01,Supermicro 雙路 Xeon 運算節點,3140103,260000,2019-06-25,指導教授,機房Rack-B,IN_STOCK,1,0.12,0
+LAB-2025-MON-01,ASUS ProArt 32吋 4K 專業螢幕,3140201,24000,2025-01-15,潘兆邠,資工館401室,IN_STOCK,1,0.60,0
