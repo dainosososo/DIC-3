@@ -1,15 +1,17 @@
-# DIC-3: LabSteward 實驗室財產管理 AI Agent
+# DIC-3: 雙主題 AI Agent 研究專題
+### Topic 1 — LabSteward 實驗室財產管理 AI Agent  ·  Topic 2 — 戶外運動空污即時預測與個人化排程 AI Agent
 ### 基於 2020 A-Z SOP 規範與 OpenSpec 規格驅動開發 (Spec-Driven Development)
 
 [![OpenSpec Validated](https://img.shields.io/badge/OpenSpec-Validated%205%2F5-success.svg)](openspec/)
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](requirements.txt)
 [![Streamlit](https://img.shields.io/badge/App-Streamlit-red.svg)](app/streamlit_app.py)
+[![Topic2 Infographic](https://img.shields.io/badge/Topic2-A4%20Infographic-orange.svg)](infographic_a4_landscape.html)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **專案成員**：潘兆邠、邱冠霖、林浚偉、張皓崴、黃翊豪  
 > **系所機構**：資訊工程學系  
 > **專案代號**：`DIC-3`  
-> **展示儀表板**：[點擊檢視專案視覺化總覽 (index.html)](index.html)
+> **展示儀表板**：[點擊檢視雙主題視覺化總覽 (index.html)](index.html)
 
 ---
 
@@ -269,3 +271,68 @@ streamlit run app/streamlit_app.py
 15. **[15]** 國立臺灣大學總務處（2023）。請購作業規範（ISO）。
 16. **[16]** Vellante, D. (2025, November 22). Breaking Analysis: GPU depreciation and useful life. *SiliconANGLE*.
 17. **[17]** 財政部。各機關奉准報廢財產之變賣及估價作業程序。
+
+
+---
+
+## 🌫️ Topic 2 — 戶外運動空污即時預測與個人化排程 AI Agent
+
+> **研究主題**：針對慢跑等戶外運動者，結合環境部即時監測站資料、短期時間序列預測與官方 AQI 指引，建構工具導向 AI Agent，提供個人化安全活動排程建議。
+
+### A–F 核心架構（提案階段概述）
+
+| 節點 | 意涵 | 重點 |
+|:---:|:---|:---|
+| **A** Attention Getter | 慢跑時換氣量暴增 8–15 倍（50–100 L/min），空污暴露風險遠超靜態 | 即時空污＋個人排程痛點 |
+| **B** But (挑戰) | 現有系統僅被動顯示歷史數據，缺短期預測；LLM 易幻覺捏造醫療建議 | 無短期趨勢 ＋ 越界幻覺 |
+| **C** Cure (解藥) | 工具導向 AI Agent：白名單 Function Calling＋時間序列預測＋官方規則庫 | 嚴格管制 LLM 決策邊界 |
+| **D** Development | FastAPI + LangChain / LLM + 時序回歸 + 環境部 AQI 規則庫 整合 | 4 個白名單工具函式 |
+| **E** Experiments | 2024–2026 臺中測站滾動回測＋至少 30 個異常情境 Agent 安全測試 | 規劃中（Expected Outcomes） |
+| **F** Findings | MAE/RMSE 預期比 Persistence 基線改善 15–25%；100% 來源揭露 | 嚴格不虛構數據 |
+
+### 5 大思維核心
+
+| # | 核心 | 關鍵問題 |
+|:---:|:---|:---|
+| C1 | **換氣量暴增** × 預測精準度 | 慢跑者 50–100 L/min 換氣→ 預測誤差如何量化成實際吸入量誤差？ |
+| C2 | **LLM 幻覺白名單管制** | 純 Function Calling 架構能否 100% 阻止越界醫療建議？ |
+| C3 | **站點代表性** | 最近監測站距慢跑路線 ≥1km 時，插值誤差多大？ |
+| C4 | **時間序列選模策略** | SARIMA vs. LSTM vs. TCN：哪個在短窗口（6h）最優？ |
+| C5 | **個人化 vs. 通用規則** | 官方 AQI 分級為群體均值；高敏族群門檻如何差異化？ |
+
+### 3 大研究權衡
+
+| 權衡 | 兩難 | 當前傾向 |
+|:---|:---|:---|
+| **T1** 預測延遲 vs. 精度 | 更複雜模型精度高但延遲>5s，影響 UX | 採輕量 SARIMA 或 Ridge；複雜模型僅作基線對照 |
+| **T2** LLM 創意性 vs. 安全性 | temperature=0 安全但答案刻板；高 temperature 有幻覺風險 | 白名單函式 + system prompt 嚴格限制 temperature |
+| **T3** 客製化程度 vs. 資料需求 | 高客製需個人健康史；資料隱私與蒐集成本高 | 提案階段先走通用規則，預留個人設定欄位 |
+
+### 關鍵交付檔案
+
+| 檔案 | 說明 |
+|:---|:---|
+| [`AIR_POLLUTION_AGENT_ANALYSIS.md`](AIR_POLLUTION_AGENT_ANALYSIS.md) | A–F 完整深層分析，含真實研究引用（BMC Medicine、Lancet 等） |
+| [`infographic_a4_landscape.html`](infographic_a4_landscape.html) | A4 橫式高密度資訊圖表（HTML，可瀏覽器直接開啟） |
+| [`infographic_a4_landscape.png`](infographic_a4_landscape.png) | A4 橫式資訊圖表截圖（PNG，直接預覽） |
+| [`index.html`](index.html) | 雙主題視覺化儀表板（Tab 1: LabSteward / Tab 2: 空污 Agent） |
+
+### 關鍵引用數據（已查證）
+
+- 🏃 換氣量慢跑時 **8–15 倍** 於靜止（50–100 L/min vs. 6 L/min at rest）
+- 📊 興大研究（*BMC Medicine*, 150 萬人追蹤）：PM₂.₅ ≥25 → 保護效益減半；≥35 → 癌症保護歸零
+- 🫀 *Lancet* 倫敦研究：2h 街道步行導致動脈急性硬化
+- 🌆 臺中空污季：10–4 月，西屯/忠明/沙鹿 測站頻繁 AQI 橙/紅
+- 🤖 白名單工具函式：`get_moenv_realtime`、`predict_short_term_aqi`、`query_official_guideline`、`optimize_schedule`
+
+### Expected Outcomes（提案階段，不虛構數據）
+
+```
+📌 預測精度: MAE/RMSE 相較 Persistence 基線改善 15–25%
+📌 安全合規: 100% 醫療建議來源揭露率
+📌 安全降級: 100% 越界請求安全降級率（拒絕 / 轉介正式醫療）
+📌 Agent 情境: ≥30 個含異常/越界情境測試
+📌 資料範圍: 2024–2026 臺中測站觀測資料滾動回測
+```
+
+---
